@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>image upload demo</title>
+	<style>
+		#myForm {
+			width: 800px;
+			margin: 30px auto;
+		}
+
+		#selectArea {
+			padding: 15px 25px;
+			background: #fbfbfb;
+			border: 1px solid #ccc;
+		}
+		#selectArea div {
+			display: inline-block;
+		}
+		.upload-btn {
+			display: inline-block;
+			padding: 0 15px;
+			line-height: 38px;
+			text-align: center;
+			font-size: 14px;
+			min-width: 50px;
+			border-radius: 4px;
+			background-color: #00a5e0;
+			color: #fff;
+			cursor: pointer;
+		}
+		.upload-btn:hover {
+			background-color: #00b4f5;
+		}
+		.upload-drag {
+			width: 75%;
+			border: 1px dashed #bcbcbc;
+			padding: 30px;
+			margin-left: 20px;
+			background: #fff;
+			color: #999;
+			text-align: center;
+		}
+		#imgInput {
+			position: absolute;
+			clip: rect(0, 0, 0, 0);
+		}
+
+		#previewArea {
+		    border: 1px solid #ccc;
+		    border-top: none;
+		}
+		.upload-img {
+			max-height: 200px;
+			padding: 10px;
+		}
+		.file-name {
+			padding-left: 10px;
+			margin-top: 0;
+		}
+
+		#buttonArea {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+<form id="myForm">
+
+	<section id="selectArea">	
+		<div class="upload-choose">
+			<label class="upload-btn" for="imgInput">选择图片</label>
+			<input type="file" id="imgInput" accept="image/*">	
+		</div>
+		<div class="upload-drag">
+			<span>将图片拖到此处</span>
+		</div>	
+	</section>
+
+	<section id="previewArea">
+
+	</section>
+
+	<section id="buttonArea">
+		<button type="submit" id="submitBtn">确认上传</button>
+		<button onclick="clear()">清除</button>
+	</section>
+		
+</form>
+
+	<script>			
+			var imgInput = document.getElementById('imgInput');
+			var preview = document.getElementById('previewArea');
+			imgInput.addEventListener('change', function(e){
+				var html;
+				var file = e.target.files[0];
+				var reader = new FileReader();
+				reader.onload = function(evt) {
+					html = '<img src="' + evt.target.result + '" class="upload-img" />' + '<p class="file-name">' + file.name + '</p>';
+					preview.innerHTML = html;
+				}
+				reader.readAsDataURL(file);
+			})
+			function clear() {
+				document.myForm.reset();
+			}		
+	</script>
+</body>
+</html>
