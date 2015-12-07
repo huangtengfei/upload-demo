@@ -1,5 +1,5 @@
 
-var uploadImage = document.getElementById('uploadImage');
+var uploadDrag = document.getElementById('upload-drag');
 var preview = document.getElementById('previewArea');
 
 function handleFiles(files) {
@@ -35,3 +35,30 @@ function handleFiles(files) {
 function clear() {
 	document.myForm.reset();
 }	
+
+function dragover(e) {
+	var elem = e.target || e.srcElement;
+	e.stopPropagation();
+	e.preventDefault();
+	elem.classList.add('drag-hover');
+}
+
+function dragleave(e) {
+	var elem = e.target || e.srcElement;
+	e.stopPropagation();
+	e.preventDefault();
+	elem.classList.remove('drag-hover');
+}
+
+function drop(e) {
+	var elem = e.target || e.srcElement;
+	var files = e.dataTransfer.files;
+	e.stopPropagation();
+	e.preventDefault();
+	handleFiles(files);
+	elem.classList.remove('drag-hover');
+}
+
+dropzone.addEventListener('dragover', dragover, false);
+dropzone.addEventListener('dragleave', dragleave, false);
+dropzone.addEventListener('drop', drop, false);
