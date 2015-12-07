@@ -1,0 +1,67 @@
+/*表单*/
+#myForm {
+	width: 800px;
+	margin: 30px auto;
+}
+
+/*图片上传区*/
+#selectArea {
+	padding: 15px 25px;
+	background: #fbfbfb;
+	border: 1px solid #ccc;
+}
+#selectArea div {
+	display: inline-block;
+}
+.upload-btn {
+	display: inline-block;
+	padding: 0 15px;
+	line-height: 38px;
+	text-align: center;
+	font-size: 14px;
+	min-width: 50px;
+	border-radius: 4px;
+	background-color: #00a5e0;
+	color: #fff;
+	cursor: pointer;
+}
+.upload-btn:hover {
+	background-color: #00b4f5;
+}
+.upload-drag {
+	width: 75%;
+	border: 1px dashed #bcbcbc;
+	padding: 30px;
+	margin-left: 20px;
+	background: #fff;
+	color: #999;
+	text-align: center;
+}
+#uploadImage {
+	position: absolute;
+	clip: rect(0, 0, 0, 0);
+}
+
+/*图片预览区*/
+#previewArea {
+    border: 1px solid #ccc;
+    border-top: none;
+    overflow: hidden;
+    *zoom: 1;
+}
+.img-item {
+	float: left;
+	margin: 10px;
+}
+.upload-img {
+	max-height: 200px;
+}
+.img-name {
+	margin-top: 0;
+	text-align: left;
+}
+
+/*按钮区*/
+#buttonArea {
+	margin-top: 20px;
+}
