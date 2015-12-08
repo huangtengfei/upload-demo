@@ -11,6 +11,9 @@ var HTFUpload = {
 
 	dragHoverClass: 'drag-hover',	// 经过拖拽区时的样式
 
+	typeFilter: ['jpg', 'jpeg', 'png'],		// 图片格式限制	
+	sizeFilter: 10240,						// 图片大小限制
+
 	onSelect: function() {},		// 获取到选择的文件时触发，更新预览区		
 
 	/*内置方法*/
@@ -27,11 +30,30 @@ var HTFUpload = {
 		}
 	},
 
+	// 格式和大小过滤
+	filterFiles: function(files) {
+		var passedFiles = [];
+		for(var i = 0; i < files.length; i++) {
+			var file = files[i],
+				type = file.type.slice(file.type.lastIndexOf('/') + 1),
+				size = file.size;
+
+			if(this.typeFilter.indexOf(type) == -1) {
+				alert(file.name + ' 格式不符合要求');
+			}else if(this.sizeFilter < size) {
+				alert(file.name + ' 大小不符合要求');
+			}else {
+				passedFiles.push(file);
+			}
+		}
+		return passedFiles;
+	},
+
 	// 拖拽释放，获取选择的文件
 	getFiles: function (e) {
 		this.dragHover(e);
 		var files = e.target.files || e.dataTransfer.files;
-		this.onSelect(files);
+		this.onSelect(this.filterFiles(files));
 	},
 
 	// 清除选择的文件

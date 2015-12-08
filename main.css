@@ -60,9 +60,8 @@
 .img-item img {
 	max-height: 200px;
 }
-.img-item p {
-	margin-top: 0;
-	text-align: left;
+.img-item a {
+	margin-left: 10px;
 }
 
 /*按钮区*/
