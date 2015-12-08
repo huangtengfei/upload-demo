@@ -1,19 +1,19 @@
 /*表单*/
-#myForm {
+.upload-form {
 	width: 800px;
 	margin: 30px auto;
 }
 
 /*图片上传区*/
-#selectArea {
+.select-zone {
 	padding: 15px 25px;
 	background: #fbfbfb;
 	border: 1px solid #ccc;
 }
-#selectArea div {
+.select-zone div {
 	display: inline-block;
 }
-.upload-btn {
+.select-btn {
 	display: inline-block;
 	padding: 0 15px;
 	line-height: 38px;
@@ -25,14 +25,14 @@
 	color: #fff;
 	cursor: pointer;
 }
-.upload-btn:hover {
+.select-btn:hover {
 	background-color: #00b4f5;
 }
-#uploadImage {
+.img-input {
 	position: absolute;
 	clip: rect(0, 0, 0, 0);
 }
-#dropzone {
+.drop-zone {
 	width: 75%;
 	border: 1px dashed #bcbcbc;
 	padding: 30px;
@@ -41,13 +41,13 @@
 	color: #999;
 	text-align: center;
 }
-#dropzone.drag-hover {
+.drop-zone.drag-hover {
 	border-color: #ADD8E6;
 	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5)
 }
 
 /*图片预览区*/
-#previewArea {
+.preview-zone {
     border: 1px solid #ccc;
     border-top: none;
     overflow: hidden;
@@ -57,15 +57,15 @@
 	float: left;
 	margin: 10px;
 }
-.upload-img {
+.img-item img {
 	max-height: 200px;
 }
-.img-name {
+.img-item p {
 	margin-top: 0;
 	text-align: left;
 }
 
 /*按钮区*/
-#buttonArea {
+.button-zone {
 	margin-top: 20px;
 }

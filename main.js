@@ -1,64 +1,44 @@
 
-var uploadDrag = document.getElementById('upload-drag');
-var preview = document.getElementById('previewArea');
+var params = {
 
-function handleFiles(files) {
-	for(var i = 0; i < files.length; i++){
-		var file = files[i];
+	formZone: document.getElementById('myForm'),
+	imgInput: document.getElementById('imgInput'),
+	dropZone: document.getElementById('dropZone'),
+	submitBtn: document.getElementById('submitBtn'),
+	clearBtn: document.getElementById('clearBtn'),
+	
+	dragHoverClass: 'drag-hover',
 
-		var div = document.createElement('div');
-		var img = document.createElement('img');
-		var p = document.createElement('p');
+	onSelect: function (files) {
+		var preview = document.getElementById('previewZone');
+		for(var i = 0; i < files.length; i++){
+			var file = files[i];
 
-		div.classList.add('img-item');
-		preview.appendChild(div);
+			var div = document.createElement('div'),
+				img = document.createElement('img'),
+				p = document.createElement('p');
 
-		img.classList.add('upload-img');
-		img.file = file;
-		div.appendChild(img);
+			div.classList.add('img-item');
+			preview.appendChild(div);
 
-		p.innerText = file.name;
-		p.classList.add('img-name');
-		div.appendChild(p);	
+			img.file = file;
+			div.appendChild(img);
 
-		var reader = new FileReader();
-		reader.onload = (function(img, p) {
-			return function(e){
-				img.src = e.target.result;
+			p.innerText = file.name;
+			div.appendChild(p);	
 
-			}
-		})(img, p);
-		reader.readAsDataURL(file);
-	}	
+			var reader = new FileReader();
+			reader.onload = (function(img, p) {
+				return function(e){
+					img.src = e.target.result;
+
+				}
+			})(img, p);
+			reader.readAsDataURL(file);
+		}	
+	}
 }
 
-function clear() {
-	document.myForm.reset();
-}	
+HTFUpload.init(params);
 
-function dragover(e) {
-	var elem = e.target || e.srcElement;
-	e.stopPropagation();
-	e.preventDefault();
-	elem.classList.add('drag-hover');
-}
 
-function dragleave(e) {
-	var elem = e.target || e.srcElement;
-	e.stopPropagation();
-	e.preventDefault();
-	elem.classList.remove('drag-hover');
-}
-
-function drop(e) {
-	var elem = e.target || e.srcElement;
-	var files = e.dataTransfer.files;
-	e.stopPropagation();
-	e.preventDefault();
-	handleFiles(files);
-	elem.classList.remove('drag-hover');
-}
-
-dropzone.addEventListener('dragover', dragover, false);
-dropzone.addEventListener('dragleave', dragleave, false);
-dropzone.addEventListener('drop', drop, false);
