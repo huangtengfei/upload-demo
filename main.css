@@ -53,14 +53,17 @@
     overflow: hidden;
     *zoom: 1;
 }
-.img-item {
+.preview-item {
 	float: left;
 	margin: 10px;
 }
-.img-item img {
+.preview-item img {
 	max-height: 200px;
 }
-.img-item a {
+.preview-item a {
+	color: #4cb2ff;
+	font-size: 13px;
+	text-decoration: none;
 	margin-left: 10px;
 }
 

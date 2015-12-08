@@ -8,11 +8,13 @@ var params = {
 	clearBtn: document.getElementById('clearBtn'),
 
 	dragHoverClass: 'drag-hover',
+	imgItemClass: 'img-item',
 	
 	sizeFilter: 512000,
 
 	onSelect: function (files) {
 		var self = this;
+		var files = HTFUpload.uploadFiles;
 		var preview = document.getElementById('previewZone');
 		for(var i = 0; i < files.length; i++){
 			var file = files[i];
@@ -23,11 +25,12 @@ var params = {
 				span = document.createElement('span'),
 				a = document.createElement('a');
 
-			div.classList.add('img-item');
+			div.classList.add('preview-item');
 			div.setAttribute('id', 'uploadFile_' + i);
 			preview.appendChild(div);
 
 			img.file = file;
+			img.classList.add('img-item');
 			div.appendChild(img);
 			div.appendChild(br);
 
@@ -38,6 +41,7 @@ var params = {
 			a.setAttribute('href', 'javascript:void(0);');
 			a.onclick = (function(index){
 				return function() {
+					files.splice(index, 1);
 					self.onDelete(index);
 				}
 			})(i);

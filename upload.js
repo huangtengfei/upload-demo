@@ -9,12 +9,15 @@ var HTFUpload = {
 	submitBtn: null,				// 提交按钮
 	clearBtn: null,					// 取消按钮
 
-	dragHoverClass: 'drag-hover',	// 经过拖拽区时的样式
+	uploadFiles: [],				// 待上传文件列表
+
+	dragHoverClass: 'drag-hover',			// 经过拖拽区时的样式
+	imgItemClass: 'img-item', 				// 预览区的单张图片样式
 
 	typeFilter: ['jpg', 'jpeg', 'png'],		// 图片格式限制	
 	sizeFilter: 10240,						// 图片大小限制
 
-	onSelect: function() {},		// 获取到选择的文件时触发，更新预览区		
+	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区		
 
 	/*内置方法*/
 
@@ -32,28 +35,26 @@ var HTFUpload = {
 
 	// 格式和大小过滤
 	filterFiles: function(files) {
-		var passedFiles = [];
 		for(var i = 0; i < files.length; i++) {
 			var file = files[i],
 				type = file.type.slice(file.type.lastIndexOf('/') + 1),
 				size = file.size;
-
 			if(this.typeFilter.indexOf(type) == -1) {
 				alert(file.name + ' 格式不符合要求');
 			}else if(this.sizeFilter < size) {
 				alert(file.name + ' 大小不符合要求');
 			}else {
-				passedFiles.push(file);
+				this.uploadFiles.push(file);
 			}
 		}
-		return passedFiles;
 	},
 
 	// 拖拽释放，获取选择的文件
 	getFiles: function (e) {
 		this.dragHover(e);
 		var files = e.target.files || e.dataTransfer.files;
-		this.onSelect(this.filterFiles(files));
+		this.filterFiles(files);
+		this.onSelect(this.uploadFiles);
 	},
 
 	// 清除选择的文件
@@ -61,6 +62,13 @@ var HTFUpload = {
 		if(this.formZone) {
 			this.formZone.reset();
 		}
+	},
+
+	// 提交
+	submit: function(e) {
+		console.log(this.uploadFiles);
+		e.stopPropagation();
+		e.preventDefault();
 	},
 
 	// 使用开发参数进行初始化，并绑定事件
@@ -85,6 +93,9 @@ var HTFUpload = {
 		}
 		if(this.clearBtn) {
 			this.clearBtn.addEventListener('click', function(e) { self.clear(e); }, false);
+		}
+		if(this.submitBtn) {
+			this.submitBtn.addEventListener('click', function(e) { self.submit(e); }, false);
 		}
 	}
 
