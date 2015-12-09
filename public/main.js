@@ -10,7 +10,7 @@ var params = {
 	dragHoverClass: 'drag-hover',
 	imgItemClass: 'img-item',
 	
-	sizeFilter: 512000,
+	sizeFilter: 512 * 1024,
 
 	onSelect: function (files) {
 		var self = this;
@@ -69,8 +69,10 @@ var params = {
 		var uploadInfo = document.getElementById('resultZone');
 		var p = document.createElement('p');
 		p.innerHTML = file.name + ' 上传失败';
+		p.style.color = 'red';
 		uploadInfo.appendChild(p);
-		var elem = document.getElementById('uploadFile_' + file.index);
+		var div = document.getElementById('uploadFile_' + file.index);
+		var elem = div.getElementsByTagName('img')[0];
 		elem.style.opacity = 0.2;
 	},
 
