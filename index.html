@@ -3,56 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>image upload demo</title>
-	<style>
-		.upload-btn {
-			display: inline-block;
-			padding: 0 15px;
-			line-height: 38px;
-			text-align: center;
-			font-size: 14px;
-			min-width: 50px;
-			border-radius: 4px;
-			background-color: #00a5e0;
-			color: #fff;
-			cursor: pointer;
-		}
-		.upload-btn:hover {
-			background-color: #00b4f5;
-		}
-		#imgInput {
-			position: absolute;
-			clip: rect(0, 0, 0, 0);
-		}
-	</style>
+	<link rel="stylesheet" href="main.css">
 </head>
 <body>
-	<form id="myForm">
-		<label class="upload-btn" for="imgInput">上传文件</label>
-		<input type="file" id="imgInput" accept="image/*">
-		<p class="file-name"></p>
-		<div id="preview"></div>
-		<button onclick="clear()">清除</button>	
-	</form>
-	<script>
-			
-			var imgInput = document.getElementById('imgInput');
-			var preview = document.getElementById('preview');
-			var fileName = document.getElementsByClassName('file-name')[0];
-			imgInput.addEventListener('change', function(e){
-				var html;
-				var file = e.target.files[0];
-				fileName.innerHTML = file.name;
-				var reader = new FileReader();
-				reader.onload = function(evt) {
-					html = '<img src="' + evt.target.result + '" />';
-					preview.innerHTML = html;
-				}
-				reader.readAsDataURL(file);
-			})
-			function clear() {
-				document.myForm.reset();
-			}
+<form id="myForm" class="upload-form">
+	<section class="select-zone">	
+		<div class="upload-choose">
+			<label class="select-btn" for="imgInput">选择图片</label>
+			<input type="file" id="imgInput" class="img-input" accept="image/*" multiple>	
+		</div>
+		<div id="dropZone" class="drop-zone">
+			<span>将图片拖到此处</span>
+		</div>	
+	</section>
+
+	<section id="previewZone" class="preview-zone">
 		
-	</script>
+	</section>
+
+	<section id="buttonZone" class="button-zone">
+		<button type="submit" id="submitBtn">确认上传</button>
+		<button id="clearBtn">清除</button>
+	</section>
+		
+</form>
+
+<script src="upload.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
