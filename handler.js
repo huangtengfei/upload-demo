@@ -12,7 +12,7 @@ function handler (req, res) {
 	form.maxFieldsSize = 2 * 1024 * 1024;
 
 	form.on('progress', function(bytesReceived, bytesExpected) {
-		if(bytesReceived > 10 * 1024) {
+		if(bytesReceived > 500 * 1024) {
 			this.emit('error', 'too big');
 			return;
 		} 

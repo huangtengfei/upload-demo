@@ -10,11 +10,11 @@ var params = {
 	dragHoverClass: 'drag-hover',
 	imgItemClass: 'img-item',
 	
-	sizeFilter: 512 * 1024,
+	sizeFilter: 500 * 1024,
 
 	onSelect: function (files) {
-		var self = this;
-		var files = HTFUpload.uploadFiles;
+		var self = this,
+			files = HTFUpload.uploadFiles;
 		var preview = document.getElementById('previewZone');
 		for(var i = 0; i < files.length; i++){
 			var file = files[i];
@@ -32,6 +32,7 @@ var params = {
 			img.file = file;
 			img.classList.add('img-item');
 			div.appendChild(img);
+
 			div.appendChild(br);
 
 			span.innerText = file.name;
@@ -57,28 +58,28 @@ var params = {
 	},
 
 	onSuccess: function(file, result) {
-		var uploadInfo = document.getElementById('resultZone');
-		var imgUrl = window.location.host + JSON.parse(result).path;
-		var p = document.createElement('p');
+		var uploadInfo = document.getElementById('resultZone'),
+			imgUrl = window.location.host + JSON.parse(result).path,
+			p = document.createElement('p');
 		p.innerHTML = file.name + ' 上传成功，图片地址是：' + imgUrl;
 		uploadInfo.appendChild(p);
 		this.onDelete(file);
 	},
 
 	onFailure: function(file) {
-		var uploadInfo = document.getElementById('resultZone');
-		var p = document.createElement('p');
+		var uploadInfo = document.getElementById('resultZone'),
+			p = document.createElement('p');
 		p.innerHTML = file.name + ' 上传失败';
 		p.style.color = 'red';
 		uploadInfo.appendChild(p);
-		var div = document.getElementById('uploadFile_' + file.index);
-		var elem = div.getElementsByTagName('img')[0];
+		var elem = document.getElementById('uploadFile_' + file.index)
+			.getElementsByTagName('img')[0];
 		elem.style.opacity = 0.2;
 	},
 
 	onDelete: function(file) {
-		var files = HTFUpload.uploadFiles;
-		var elem = document.getElementById('uploadFile_' + file.index);
+		var files = HTFUpload.uploadFiles,
+			elem = document.getElementById('uploadFile_' + file.index);
 		elem.style.display = 'none';
 		files.splice(files.indexOf(file), 1);
 	}

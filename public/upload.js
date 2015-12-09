@@ -15,7 +15,7 @@ var HTFUpload = {
 	imgItemClass: 'img-item', 				// 预览区的单张图片样式
 
 	typeFilter: ['jpg', 'jpeg', 'png'],		// 图片格式限制	
-	sizeFilter: 512 * 1024,						// 图片大小限制
+	sizeFilter: 500 * 1024,						// 图片大小限制
 
 	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区	
 	onSuccess: function() {}, 				// 单张图片上传成功后触发
