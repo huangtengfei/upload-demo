@@ -17,7 +17,9 @@ var HTFUpload = {
 	typeFilter: ['jpg', 'jpeg', 'png'],		// 图片格式限制	
 	sizeFilter: 10240,						// 图片大小限制
 
-	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区		
+	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区	
+	onSuccess: function() {}, 				// 单张图片上传成功后触发
+	onFailure: function() {}, 				// 单张图片上传成功后触发	
 
 	/*内置方法*/
 
@@ -44,6 +46,7 @@ var HTFUpload = {
 			}else if(this.sizeFilter < size) {
 				alert(file.name + ' 大小不符合要求');
 			}else {
+				file.index = i;
 				this.uploadFiles.push(file);
 			}
 		}
@@ -66,17 +69,27 @@ var HTFUpload = {
 
 	// 提交
 	submit: function(e) {
-
-		var data = new FormData();
-		data.files = this.uploadFiles;
-
-		fetch('/upload', {
-			method: 'post',
-			body: data
-		})
-		// console.log(this.uploadFiles);
-		// e.stopPropagation();
-		// e.preventDefault();
+		var self = this;
+		for(var i = 0; i < self.uploadFiles.length; i++){
+			var file = self.uploadFiles[i];
+			(function(file){
+				var uri = '/upload',
+					xhr = new XMLHttpRequest(),
+					fd = new FormData();
+				xhr.open('POST', uri, true);
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						if(xhr.status == 200) {
+							self.onSuccess(file, xhr.responseText);
+						}else {
+							self.onFailure(file);
+						}
+					}
+				}
+				fd.append('myFile', file);
+				xhr.send(fd);
+			})(file);
+		}
 	},
 
 	// 使用开发参数进行初始化，并绑定事件

@@ -39,12 +39,11 @@ var params = {
 
 			a.innerText = '删除';
 			a.setAttribute('href', 'javascript:void(0);');
-			a.onclick = (function(index){
+			a.onclick = (function(file){
 				return function() {
-					files.splice(index, 1);
-					self.onDelete(index);
+					self.onDelete(file);
 				}
-			})(i);
+			})(file);
 			div.appendChild(a);
 
 			var reader = new FileReader();
@@ -57,9 +56,29 @@ var params = {
 		}	
 	},
 
-	onDelete: function(index) {
-		var elem = document.getElementById('uploadFile_' + index);
+	onSuccess: function(file, result) {
+		var uploadInfo = document.getElementById('resultZone');
+		var imgUrl = window.location.host + JSON.parse(result).path;
+		var p = document.createElement('p');
+		p.innerHTML = file.name + ' 上传成功，图片地址是：' + imgUrl;
+		uploadInfo.appendChild(p);
+		this.onDelete(file);
+	},
+
+	onFailure: function(file) {
+		var uploadInfo = document.getElementById('resultZone');
+		var p = document.createElement('p');
+		p.innerHTML = file.name + ' 上传失败';
+		uploadInfo.appendChild(p);
+		var elem = document.getElementById('uploadFile_' + file.index);
+		elem.style.opacity = 0.2;
+	},
+
+	onDelete: function(file) {
+		var files = HTFUpload.uploadFiles;
+		var elem = document.getElementById('uploadFile_' + file.index);
 		elem.style.display = 'none';
+		files.splice(files.indexOf(file), 1);
 	}
 }
 
