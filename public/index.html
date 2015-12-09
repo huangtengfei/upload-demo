@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>image upload demo</title>
+	<style>
+		.upload-btn {
+			display: inline-block;
+			padding: 0 15px;
+			line-height: 38px;
+			text-align: center;
+			font-size: 14px;
+			min-width: 50px;
+			border-radius: 4px;
+			background-color: #00a5e0;
+			color: #fff;
+			cursor: pointer;
+		}
+		.upload-btn:hover {
+			background-color: #00b4f5;
+		}
+		#preview {
+			margin-bottom: 15px;
+		}
+		#imgInput {
+			position: absolute;
+			clip: rect(0, 0, 0, 0);
+		}
+	</style>
+</head>
+<body>
+	<form id="myForm">
+		<label class="upload-btn" for="imgInput">选择文件</label>
+		<input type="file" id="imgInput" accept="image/*">	
+		<div id="preview">
+		</div>
+		<button type="button" onclick="sendFile()">上传</button>
+		<button type="button" onclick="clear()">清除</button>	
+	</form>
+	<div id="uploadInfo">		
+	</div>
+	<script>			
+		var imgInput = document.getElementById('imgInput');
+		var preview = document.getElementById('preview');	
+		var uploadInfo = document.getElementById('uploadInfo');	
+
+		imgInput.addEventListener('change', function(e){
+			var html;
+			var file = e.target.files[0];
+			html = '<p class="file-name">' + file.name + '</p>';
+			var reader = new FileReader();
+			reader.onload = function(evt) {
+				html += '<img src="' + evt.target.result + '" />';
+				preview.innerHTML = html;
+				uploadInfo.innerHTML = '';
+			}
+			reader.readAsDataURL(file);
+		})
+
+		function clear() {
+			document.myForm.reset();
+		}
+
+		function onSuccess(result) {
+			var imgUrl = window.location.host + JSON.parse(result).path;
+			var p = '<p>上传成功，图片地址是：' + imgUrl + '</p>';
+			uploadInfo.innerHTML = p;
+			preview.innerHTML = '';
+		}
+
+		function sendFile() {
+			var file = imgInput.files[0];
+
+			var uri = '/upload',
+				xhr = new XMLHttpRequest(),
+				fd = new FormData();
+
+			xhr.open('POST', uri, true);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status == 200) {
+						onSuccess(xhr.responseText);
+					}else {
+						alert('上传失败');
+					}
+				}
+			}
+
+			fd.append('myFile', file);
+			xhr.send(fd);
+		}	
+	</script>
+</body>
+</html>

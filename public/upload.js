@@ -66,9 +66,17 @@ var HTFUpload = {
 
 	// 提交
 	submit: function(e) {
-		console.log(this.uploadFiles);
-		e.stopPropagation();
-		e.preventDefault();
+
+		var data = new FormData();
+		data.files = this.uploadFiles;
+
+		fetch('/upload', {
+			method: 'post',
+			body: data
+		})
+		// console.log(this.uploadFiles);
+		// e.stopPropagation();
+		// e.preventDefault();
 	},
 
 	// 使用开发参数进行初始化，并绑定事件
