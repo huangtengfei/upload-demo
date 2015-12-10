@@ -1,6 +1,8 @@
 
 这是一个图片上传的demo，支持上传预览和多图上传，仅在 chrome(45.0.2454.85) 和 ff(38.0.1) 上测试通过，不支持IE
 
+[查看 demo 效果](http://huangtengfei.github.io/upload-demo/)
+
 ## 使用说明
 
 1. 引用 upload.js （不需要依赖任何库）
@@ -9,7 +11,7 @@
 ```
 var params = {
 
-  formZone: null,               // 表单区
+    formZone: null,               // 表单区
     imgInput: null,                 // file 控件
     dropZone: null,                 // 拖拽区  
     submitBtn: null,                // 提交按钮
