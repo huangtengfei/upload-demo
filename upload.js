@@ -17,7 +17,8 @@ var HTFUpload = {
 	typeFilter: ['jpg', 'jpeg', 'png'],		// 图片格式限制	
 	sizeFilter: 10240,						// 图片大小限制
 
-	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区		
+	onSelect: function() {},				// 获取到选择的文件时触发，更新预览区	
+	onClear: function() {}, 				// 清空选择的图片	
 
 	/*内置方法*/
 
@@ -59,9 +60,8 @@ var HTFUpload = {
 
 	// 清除选择的文件
 	clear: function () {
-		if(this.formZone) {
-			this.formZone.reset();
-		}
+		this.uploadFiles = [];
+		this.onClear();
 	},
 
 	// 提交

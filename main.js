@@ -60,6 +60,11 @@ var params = {
 	onDelete: function(index) {
 		var elem = document.getElementById('uploadFile_' + index);
 		elem.style.display = 'none';
+	},
+
+	onClear: function() {
+		var preview = document.getElementById('previewZone');
+		preview.innerHTML = '';
 	}
 }
 
